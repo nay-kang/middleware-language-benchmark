@@ -5,7 +5,7 @@ import (
     "net/http"
     "log"
     "io/ioutil"
-    //"bytes"
+    "runtime"
 )
 
 func handleRequest(w http.ResponseWriter, r *http.Request) {
@@ -21,6 +21,7 @@ func handleRequest(w http.ResponseWriter, r *http.Request) {
 }
 
 func main() {
+    runtime.GOMAXPROCS(2)
     http.HandleFunc("/", handleRequest) //设置访问的路由
     err := http.ListenAndServe(":18083", nil) //设置监听的端口
     if err != nil {
